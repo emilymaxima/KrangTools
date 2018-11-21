@@ -7,9 +7,10 @@ xargs -rxa requirements.txt -- sudo apt-get install --
 In order to use this script, you will need to install the programs inside of requirements.txt
 
 The file structure this works around is as follows:
-
+```
 |/root/
 -|OCRd
 -|foo/
 --|OCR.sh
 --|<.PDF files to be OCR'd>
+```
