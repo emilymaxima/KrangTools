@@ -4,7 +4,10 @@
 rips out whole sentences from raw text files.
 
 ## speechparts.py
-Performs part of speech tagging.
+Performs part-of-speech tagging.
+
+### bulk-speechparts.py
+Bulk part-of-speech tagging script. 
 
 ## stopword_filter.py
 Removes stopwords from text.
