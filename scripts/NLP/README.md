@@ -11,3 +11,6 @@ Removes stopwords from text.
 
 ## wordripper.py
 Word tokenizer.
+
+### Bulk-wordripper.py
+Rips tokenized words out of the current directory of text files
