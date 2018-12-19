@@ -26,3 +26,13 @@ This script is helpful for moving large volumes of files from one place to anoth
 
 ## striptext.sh
 This script will help rip raw text out of your PDFs. It will dump raw text files out with the same name as the original file.
+
+## OCR_Drive.py
+This script supports the Google docs upload method. It's much less resource intensive and much faster per document, but there are things you should take note of before using it:
+
+THIS SCRIPT WILL REPLACE THE ORIGINAL PDF FILE! Make sure you have copies if you want to keep the originals intact!
+Be aware that this will only work for documents under 5mb in size and you will need an active network connection to upload and download the pdf files you wish to process.
+
+You will also need to have a google drive api key in order to make this work.
+
+Credit for the singule document processing script goes out to https://tanaikech.github.io/2017/05/02/ocr-using-google-drive-api/
