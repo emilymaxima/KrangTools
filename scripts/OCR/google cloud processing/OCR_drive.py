@@ -25,10 +25,8 @@ APPLICATION_NAME = 'Drive API Python Quickstart'
 
 def get_credentials():
     """Gets valid user credentials from storage.
-
     If nothing has been stored, or if the stored credentials are invalid,
     the OAuth2 flow is completed to obtain the new credentials.
-
     Returns:
         Credentials, the obtained credential.
     """
@@ -56,32 +54,37 @@ def main():
             imgfile = filename  # Image with texts (png, jpg, bmp, gif, pdf)
             txtfile = filename  # Text file outputted by OCR
 # change these values for the path of the locally stored files, and where you want them moved after processing
-            path = '<orig_doc_path>'
-            finDir = '<final_path>'
+		path = '<path_to_original_docs>'
+        	finDir = '<final_directory>'
+# Files will be sent to this directory if the script errors. This is failover protection.
+        	rejDir = '<failover_directory>'
+
 # This will help you if the script ever dies while processing a certain file
             print (filename)
-
-            mime = 'application/vnd.google-apps.document'
-            res = service.files().create(
-                body={
-                    'name': imgfile,
-                    'mimeType': mime
-#            'uploadType': multipart
+            try:
+            	mime = 'application/vnd.google-apps.document'
+            	res = service.files().create(
+                	body={
+                    	'name': imgfile,
+             	       	'mimeType': mime
+#            	'uploadType': multipart
                 },
                 media_body=MediaFileUpload(imgfile, mimetype=mime, resumable=True)
             ).execute()
 
-            downloader = MediaIoBaseDownload(
-                io.FileIO(txtfile, 'wb'),
-                service.files().export_media(fileId=res['id'], mimeType="text/plain")
+            	downloader = MediaIoBaseDownload(
+               	    io.FileIO(txtfile, 'wb'),
+               	    service.files().export_media(fileId=res['id'], mimeType="text/plain")
             )
-            done = False
-            while done is False:
-                status, done = downloader.next_chunk()
-            shutil.move(os.path.join(path, filename), finDir)
-
-            service.files().delete(fileId=res['id']).execute()
+            	done = False
+            	while done is False:
+                	status, done = downloader.next_chunk()
+           		shutil.move(os.path.join(path, filename), finDir)
+            	service.files().delete(fileId=res['id']).execute()
+            except:
+            	shutil.move(os.path.join(path, filename), regDir)
             print("Done.")
+
 
 if __name__ == '__main__':
     main()
