@@ -36,3 +36,4 @@ Be aware that this will only work for documents under 5mb in size and you will n
 You will also need to have a google drive api key in order to make this work.
 
 Credit for the singule document processing script goes out to https://tanaikech.github.io/2017/05/02/ocr-using-google-drive-api/
+Great thanks to @glitchliz for helping with the failover protections!
