@@ -53,9 +53,11 @@ def main():
 
             imgfile = filename  # Image with texts (png, jpg, bmp, gif, pdf)
             txtfile = filename  # Text file outputted by OCR
-# change these values for the path of the locally stored files, and where you want them moved after processing
+
+# Change these values for the path of the locally stored files, and where you want them moved after processing
 		path = '<path_to_original_docs>'
         	finDir = '<final_directory>'
+
 # Files will be sent to this directory if the script errors. This is failover protection.
         	rejDir = '<failover_directory>'
 
@@ -71,7 +73,6 @@ def main():
                 },
                 media_body=MediaFileUpload(imgfile, mimetype=mime, resumable=True)
             ).execute()
-
             	downloader = MediaIoBaseDownload(
                	    io.FileIO(txtfile, 'wb'),
                	    service.files().export_media(fileId=res['id'], mimeType="text/plain")
