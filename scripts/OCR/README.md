@@ -21,9 +21,6 @@ The file structure this works around is as follows:
 ## OCR.sh
 Recommend you use this with tmux, especially if you're processing through a high volume of files, most especially if your files have a high number of pages in them.
 
-## movestuff.sh
-This script is helpful for moving large volumes of files from one place to another.
-
 ## striptext.sh
 This script will help rip raw text out of your PDFs. It will dump raw text files out with the same name as the original file.
 
