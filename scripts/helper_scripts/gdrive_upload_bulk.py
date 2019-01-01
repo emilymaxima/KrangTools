@@ -97,13 +97,6 @@ for filename in os.listdir("."):
 			    return download_url
 
 			if __name__ == '__main__':
-#			# Check if file provied as argument and exists
-#			    if len(sys.argv) != 2:
-#			        print("One file should be provided as argument")
-#			        sys.exit(1)
-#			    else:
-			# Path to the file to upload
-#			        filename = sys.argv[1]
 			    try:
 			        with open(filename) as f: pass
 			    except IOError as e:
