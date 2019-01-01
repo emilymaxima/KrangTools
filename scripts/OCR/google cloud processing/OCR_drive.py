@@ -3,12 +3,15 @@ import httplib2
 import os
 import io
 import shutil
+import time
 
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 from apiclient.http import MediaFileUpload, MediaIoBaseDownload
+
+start = time.time()
 
 try:
     import argparse
@@ -53,17 +56,16 @@ def main():
 
             imgfile = filename  # Image with texts (png, jpg, bmp, gif, pdf)
             txtfile = filename  # Text file outputted by OCR
-
-# Change these values for the path of the locally stored files, and where you want them moved after processing
-		path = '<path_to_original_docs>'
-        	finDir = '<final_directory>'
-
-# Files will be sent to this directory if the script errors. This is failover protection.
-        	rejDir = '<failover_directory>'
+# change these values for the path of the locally stored files, and where you want them moved after processing
+	    path = '/media/Archives/CREST/copycopy/'
+	    finDir = '/media/Archives/CREST/donedone/'
+            rejDir = '/media/Archives/CREST/rejected'
 
 # This will help you if the script ever dies while processing a certain file
             print (filename)
             try:
+
+
             	mime = 'application/vnd.google-apps.document'
             	res = service.files().create(
                 	body={
@@ -73,6 +75,7 @@ def main():
                 },
                 media_body=MediaFileUpload(imgfile, mimetype=mime, resumable=True)
             ).execute()
+
             	downloader = MediaIoBaseDownload(
                	    io.FileIO(txtfile, 'wb'),
                	    service.files().export_media(fileId=res['id'], mimeType="text/plain")
@@ -83,9 +86,11 @@ def main():
            		shutil.move(os.path.join(path, filename), finDir)
             	service.files().delete(fileId=res['id']).execute()
             except:
-            	shutil.move(os.path.join(path, filename), regDir)
+            	shutil.move(os.path.join(path, filename), rejDir)
             print("Done.")
 
+        end = time.time()
+        print("I have been running for", end - start, "seconds")
 
 if __name__ == '__main__':
     main()
